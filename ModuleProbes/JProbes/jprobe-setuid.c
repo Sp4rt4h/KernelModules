@@ -4,7 +4,7 @@
 #include <linux/kprobes.h>
 #include <linux/kallsyms.h>
 static struct jprobe setuid_jprobe;
-static asmlinkage int
+static asmlinkage int kp_setuid(uid_t uid)
 {
 	printk("process %s [%d] attempted setuid to %d/n",current->comm,current->cred->uid, uid);
 	jprobe_return();
