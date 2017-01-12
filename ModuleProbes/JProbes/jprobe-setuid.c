@@ -2,7 +2,7 @@
 #include <linux/module.h>
 #include <linux/sched.h>
 #include <linux/kprobes.h>
-#include <init.h>
+#include <linux/init.h>
 #include <linux/version.h>
 #include <linux/kallsyms.h>
 static struct jprobe setuid_jprobe;
