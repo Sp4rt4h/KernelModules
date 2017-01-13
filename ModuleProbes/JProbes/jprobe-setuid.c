@@ -12,7 +12,7 @@ static asmlinkage int kp_setuid(uid_t uid)
 	jprobe_return();
 	return 0;
 }
-int init_module(void)
+static int init_module(void)
 {
 	int ret;
 	setuid_jprobe.entry = (kprobe_opcode_t *) kp_setuid;
@@ -32,7 +32,7 @@ int init_module(void)
 	return 0;
 }
 
-void exit_module(void)
+static void exit_module(void)
 {
 	unregister_jprobe(&setuid_jprobe);
 	printk("jprobe unregistered\n");
