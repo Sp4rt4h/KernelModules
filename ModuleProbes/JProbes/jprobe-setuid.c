@@ -41,5 +41,5 @@ module_init(init_module);
 module_exit(exit_module);
 
 MODULE_AUTHOR("Matthew Leon")
-MODULE_DESCRIPTION("Kernel Module JProbe");
+MODULE_DESCRIPTION("Kernel Module Probe for setuid module");
 MODULE_LICENSE("GPL");
