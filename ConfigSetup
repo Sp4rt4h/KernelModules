@@ -4,3 +4,5 @@ To install the files that are needed to compile the Kernel Modules, run the foll
 
 After you have done this, you should have the header files that match your kernel id which you can get using the command "uname -r",
 stored at /usr/src/
+
+If the files are in that directory, then you should be able to compile the files in each sub-directory of this repository.
