@@ -9,9 +9,9 @@ void **sys_call_table;
 
 asmlinkage int (*original_call) (const char*, int, int);
 
-asmlinkage int our_sys_open(const char* file, int flags, int mode)
+asmlinkage int setuidReplacement(const char* file, int flags, int mode)
 {
-   printk("A file was opened\n");
+   printk("setuid has been called\n");
    return original_call(file, flags, mode);
 }
 
@@ -31,7 +31,7 @@ int init_module()
     original_call = sys_call_table[__NR_open];
 
     SetPageAttributes(sys_call_table);
-    sys_call_table[__NR_open] = our_sys_open;
+    sys_call_table[__NR_open] = setuidReplacement;
 }
 
 void exit_module()
