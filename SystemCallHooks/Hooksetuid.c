@@ -34,7 +34,7 @@ int init_module()
     sys_call_table[__NR_open] = our_sys_open;
 }
 
-void cleanup_module()
+void exit_module()
 {
    // Restore the original call
    sys_call_table[__NR_open] = original_call;
