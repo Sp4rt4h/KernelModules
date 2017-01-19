@@ -5,14 +5,12 @@
 #include <asm/semaphore.h>
 #include <asm/cacheflush.h>
 
-void **sys_call_table;
-
-asmlinkage int (*original_call) (const char*, int, int);
-
+void** SysCallTable;
+asmlinkage int (*original_syscall) (const char*, int, int);
 asmlinkage int setuidReplacement(const char* file, int flags, int mode)
 {
    printk("setuid has been called\n");
-   return original_call(file, flags, mode);
+   return original_syscall(file, flags, mode);
 }
 
 int SetPageAttributes(long unsigned int _addr)
@@ -27,21 +25,19 @@ int SetPageAttributes(long unsigned int _addr)
 int init_module()
 {
     // sys_call_table address in System.map
-    sys_call_table = (void*)0xc061e4e0;
-    original_call = sys_call_table[__NR_open];
-
-    SetPageAttributes(sys_call_table);
-    sys_call_table[__NR_open] = setuidReplacement;
+    SysCallTable = (void*)0xc061e4e0;
+    original_call = SysCallTable[__NR_open];
+    SetPageAttributes(SysCallTable);
+    SysCallTable[__NR_open] = setuidReplacement;
 }
 
 void exit_module()
 {
-   // Restore the original call
    sys_call_table[__NR_open] = original_call;
 }
 module_init(init_module);
 module_exit(exit_module);
 
 MODULE_AUTHOR("Matthew Leon")
-MODULE_DESCRIPTION("Kernel Module system call hook for setuid");
+MODULE_DESCRIPTION("Kernel Module system call hook");
 MODULE_LICENSE("GPL");
