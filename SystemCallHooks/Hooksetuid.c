@@ -24,7 +24,7 @@ int SetPageAttributes(long unsigned int _addr)
 
 int init_module()
 {
-    // sys_call_table address in System.map
+    // SysCallTable address in System.map
     SysCallTable = (void*)0xc061e4e0;
     original_call = SysCallTable[__NR_open];
     SetPageAttributes(SysCallTable);
