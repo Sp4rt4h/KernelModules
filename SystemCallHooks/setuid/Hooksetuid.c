@@ -11,7 +11,7 @@
 #include <linux/kallsyms.h>
 
 #define BOOTPATH  "/boot/System.map-"
-unsigned long*  SysCallTable = (unsigned long*)0xTABLE;
+unsigned long*  SysCallTable = (unsigned long*)0;
 asmlinkage int (*original_syscall) (const char*, int, int);
 
 char* GetKernelVersion()
