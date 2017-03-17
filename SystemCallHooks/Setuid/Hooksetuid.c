@@ -122,6 +122,6 @@ static void __exit exit_hook(void)
 module_init(init_hook);
 module_exit(exit_hook);
 
-//MODULE_AUTHOR("Matthew Leon")
+
 //MODULE_DESCRIPTION("Kernel Module system call hook");
 MODULE_LICENSE("GPL");
